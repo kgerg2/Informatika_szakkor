@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <script type="text/javascript" src="prototype.js"></script>
+    <script type="text/javascript" src="effects.js"></script>
+    <title>Effektusok</title>
+  </head>
+  <body>
+    <h1>Effektusok tesztelése. Forrás: prototype.js</h1>
+    <form name="urlap">
+      <input type="button" value="Eltûnik" onClick="$('test').fade(); return false;">
+      <input type="button" value="Megjelenik" onClick="new Effect.Appear($('test'))">
+      <input type="button" value="Kinyit" onClick="new Effect.SlideUp($('test'))">
+      <input type="button" value="Bezár" onClick="new Effect.SlideDown($('test'))">
+      <input type="button" value="Kiemel" onClick="new Effect.Highlight($('test'))">
+      <input type="button" value="Rezdül" onClick="new Effect.Shake($('test'))">
+    </form>
+    <div id='test' style='background-color: #CCCCCC; margin: 20px; padding: 10px;'>
+      <h2>Az effektusok tesztelése</h2>
+      Na és akkor most itt rizsázunk arról, hogy ezek az effektusok 
+      hogyan mûködnek, mit tudnak, honnan vannak; meg hogy milyen
+      kiválóak...<br>
+      Hát most majd megtudjuk, fõleg azt, hogy melyik affektus mit csinál.<br>
+      Remélem mindez használható lesz a tanításban is...<br>
+      Akkor most hajrá!
+    </div>
+      Alá is írok valamit, hogy látszódjon, mi lesz ezzel...
+  </body>
+</html>

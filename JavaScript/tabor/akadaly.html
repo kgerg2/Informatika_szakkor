@@ -1,0 +1,296 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Akadály az úton</title>
+		<style type="text/css">
+			html, body {
+				margin: 0;
+				overflow: hidden;
+				height: 100%;
+				//background-color: darkgrey;
+				font-family: Arial;
+				font-size: 16px;
+				line-height: 1.5;
+			}
+			#beall{
+				position: fixed;
+				top: 300px;
+				left: 0;
+				//padding: 10px;
+				overflow: auto;
+			}
+			#alldb{
+				color: red;
+				font-weight: bold;
+			}
+			h1{
+				text-align: center;
+				font-size: 24pt;
+				//color: white;
+				//padding: 5px;
+			}
+			h4{
+				margin: 15px 0 5px 0;
+				font-size: 18px;
+			}
+			input{
+				background-color: white;
+				border: 1px solid black;
+				padding: 2px;
+			}
+			input[type=number], input[type=text]{
+				width: 100px;
+			}
+			input[type=button]{
+				margin: 3px;
+				padding: 4px 8px;
+			}
+			canvas[resize]{
+				height: 300px;
+				width: 100%;
+				background-color: lightgrey;
+			}
+		</style>
+		<script type="text/paperscript" canvas="canvas">
+			var savdb = 2;
+			var fa = [], aa = [];
+			var anim = true;
+			var maxSebesseg = 10;
+			var felsoVege = canvas.width;
+			var alsoVege = 0;
+			var vanHely = true;
+			var autoSebesseg = 10;
+			ut_rajz();
+			var ember = new Path.Circle(0, 0, 10);
+			var emberUt;
+			var akadaly = new Path.Rectangle(canvas.width/2, canvas.height-50, 30, 30);
+			akadaly.fillColor = "brown";
+			akadaly.strokeColor = "black";
+			//var ut = new Path.Circle(canvas.width/2, canvas.height*1.5, canvas.height);
+			var ut = new Path.Circle(canvas.width/2+15, canvas.height*2, canvas.height*1.4);
+			//var ut = new Path(new Point(canvas.width/2-canvas.height, canvas.height*3/4), new Point(canvas.width/2-canvas.height+100, canvas.height*3/4-10), new Point(canvas.width/2+15, canvas.height/2+(canvas.height/savdb-20)*0.75/2), new Point(canvas.width/2+canvas.height+30, canvas.height*3/4));
+			//ut.smooth();
+			//ut.strokeColor = "red";
+			//ut.strokeWidth = 10;
+			ut.flatten(0.01);
+			//ut.selected = true;
+			for(var i=0;i<ut.segments.length;i++){
+				//console.log(ut);
+				if(ut.segments[i].point.y>3/4*canvas.height){
+					ut.removeSegment(i);
+					i--;
+				}
+			}
+			
+			function ut_rajz(){
+				var vonal = new Path(new Point(0, 0), new Point(canvas.width, 0));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				vonal = new Path(new Point(0, canvas.height), new Point(canvas.width, canvas.height));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				for(var i=1;i<savdb;i++){
+					vonal = new Path(new Point(0, i*canvas.height/savdb), new Point(canvas.width, i*canvas.height/savdb));
+					vonal.strokeWidth = 10;
+					vonal.dashArray = [60, 40];
+					vonal.strokeColor = "white";
+				}
+			}
+			
+			function AlsoAuto(){
+				this.terulet = new Path.Rectangle(alsoVege-2*canvas.height/savdb+20, canvas.height/2+10, 2*canvas.height/savdb-20, canvas.height/savdb-20);
+				this.auto = new Path.Rectangle(0, 0, (2*canvas.height/savdb-20)*0.7, (canvas.height/savdb-20)*0.75);
+				this.auto.position = this.terulet.position;
+				var szin;
+				if(document.getElementById("veletlen").checked){
+					var szinert = Math.floor(Math.random()*0xFFFFFF);
+					szin = "#" + (szinert).toString(16);
+					document.getElementById("szin").value = szin;
+					var kompl = "#" + (0xFFFFFF-szinert).toString(16);
+				} else{
+					szin = document.getElementById("szin").value;
+				}
+				this.auto.fillColor = szin;
+				if(kompl) this.auto.strokeColor = kompl;
+				this.kerules = false;
+				this.vissza = true;
+				this.haladas = -1;
+				this.lep = function(){
+					this.terulet.position.x += autoSebesseg;
+					this.auto.position = this.terulet.position;
+					if(this.terulet.bounds.left<alsoVege) alsoVege = this.terulet.bounds.left;
+					if(this.terulet.position.x>ut.bounds.left && this.haladas==-1) this.kerules = true;
+					//if(this.terulet.bounds.right>felsoVege) felsoVege = this.terulet.bounds.right;
+					//if(this.terulet.intersects(new Rectangle(canvas.width/2, 0, canvas.width/2, canvas.height/2))) vanHely = false;
+				}
+				this.kerul = function(){
+					if(this.vissza) console.log(Number(document.getElementById("ath").value)/100);
+					if(akadaly && this.vissza && this.haladas==-1 && Math.random()<Number(document.getElementById("ath").value)/100){
+						this.elrak = true;
+						this.emberBeall();
+						this.vissza = false;
+					}
+					this.vissza = false;
+					if(akadaly && !vanHely && this.haladas==-1) return;
+					this.haladas++;
+					if(this.haladas>=ut.segments.length-1){
+						this.kerules = false;
+						this.terulet.bounds.top = canvas.height/savdb+10;
+					} else{
+						this.terulet.position = ut.segments[this.haladas].point;
+					}
+					this.auto.position = this.terulet.position;
+				}
+				this.emberBeall = function(){
+					ember.fillColor = "brown";
+					emberUt = new Path((this.auto.bounds.topRight+this.auto.bounds.topCenter)/2 - [0, 10], this.auto.bounds.topRight + [10, -10], new Point(canvas.width/2+15, canvas.height-90), new Point(canvas.width/2+15, canvas.height-60), new Point(canvas.width/2+15, canvas.height-20));
+					emberUt.smooth();
+					emberUt.flatten(0.01);
+					//emberUt.selected = true;
+				}
+				this.odebbTol = function(){
+					if(this.vissza){
+						this.haladas--;
+					} else{
+						this.haladas++;
+					}
+					if(this.haladas<0){
+						this.elrak = false;
+						this.kerules = false;
+						akadaly = undefined;
+						ember.remove();
+						return;
+					}
+					if(this.haladas>=emberUt.segments.length){
+						this.vissza = true;
+						this.haladas -= 2;
+					}
+					//console.log(this.haladas);
+					ember.position = emberUt.segments[this.haladas].point;
+					if(akadaly.intersects(ember) && !this.vissza) akadaly.position = ember.position + [0, 25];
+				}
+			}
+			
+			function FelsoAuto(){
+				this.terulet = new Path.Rectangle(felsoVege, 10, 2*canvas.height/savdb-20, canvas.height/savdb-20);
+				this.auto = new Path.Rectangle(0, 0, (2*canvas.height/savdb-20)*0.7, (canvas.height/savdb-20)*0.75);
+				this.auto.position = this.terulet.position;
+				var szin;
+				if(document.getElementById("veletlen").checked){
+					var szinert = Math.floor(Math.random()*0xFFFFFF);
+					szin = "#" + (szinert).toString(16);
+					document.getElementById("szin").value = szin;
+					var kompl = "#" + (0xFFFFFF-szinert).toString(16);
+				} else{
+					szin = document.getElementById("szin").value;
+				}
+				this.auto.fillColor = szin;
+				if(kompl) this.auto.strokeColor = kompl;
+				this.lep = function(){
+					this.terulet.position.x -= autoSebesseg;
+					this.auto.position = this.terulet.position;
+					//console.log(this.terulet.bounds.right);
+					if(this.terulet.bounds.right>felsoVege) felsoVege = this.terulet.bounds.right;
+					//console.log(vanHely);
+				}
+			}
+			/*
+			var terulet = new Path.Rectangle(canvas.width/2-canvas.height, 0, canvas.width/2+canvas.height, canvas.height/2);
+			terulet.fillColor = "green";
+			*/
+			function onFrame(event){
+				if(!anim) return;
+				//console.log(fa.length);
+				felsoVege = canvas.width;
+				alsoVege = 0;
+				vanHely = true;
+				for(var i in fa){
+					if(fa[i].terulet.bounds.left>canvas.height/2/*fa[i].terulet.isInside(new Rectangle(canvas.width/2-canvas.height, 0, canvas.width/2+canvas.height, canvas.height/2)) || fa[i].terulet.intersects(new Path.Rectangle(canvas.width/2-canvas.height, 0, canvas.width/2+canvas.height, canvas.height/2))*/) vanHely = false;
+				}
+				for(var i in fa){
+					var mehet = true;
+					for(var j=0; j<fa.length && mehet; j++){
+						if(i!=j && fa[i].terulet.intersects(fa[j].terulet) && fa[i].terulet.position.x>fa[j].terulet.position.x) mehet = false;
+					}
+					for(var j=0; j<aa.length && mehet; j++){
+						if(fa[i].terulet.intersects(aa[j].terulet) && fa[i].terulet.position.x>aa[j].terulet.position.x) mehet = false;
+					}
+					if(mehet) fa[i].lep();
+				}
+				//if(!vanHely) terulet.fillColor = "red";
+				//if(vanHely) terulet.fillColor = "green";
+				var alldb = 0;
+				for(var i in aa){
+					if(aa[i].auto.position.x<canvas.width/2){
+						alldb++;
+					}
+					var mehet = true;
+					for(var j=0; j<aa.length && mehet; j++){
+						if(i!=j && aa[i].terulet.intersects(aa[j].terulet) && aa[i].terulet.position.x<aa[j].terulet.position.x) mehet = false;
+					}
+					/*for(var j=0; j<fa.length && mehet; j++){
+						if(aa[i].terulet.intersects(fa[j].terulet)) mehet = false;
+					}*/
+					if(mehet){
+						if(akadaly && aa[i].elrak){
+							aa[i].odebbTol();
+						} else if(akadaly && aa[i].kerules){
+							aa[i].kerul();
+						} else{
+							aa[i].lep();
+						}
+					}
+				}
+				for(var i=0;i<aa.length || i<fa.length;i++){
+					if(i<fa.length && fa[i].auto.bounds.right<0){
+						console.log(fa[i]);
+						fa[i].auto.remove();
+						fa[i].terulet.remove();
+						fa.shift();
+						if(i>0) i--;
+					}
+					if(i<aa.length && aa[i].auto.bounds.left>canvas.width){
+						console.log(aa[i], aa[i].auto.bounds.left-canvas.width);
+						aa[i].auto.remove();
+						aa[i].terulet.remove();
+						aa.shift();
+						if(i>0) i--;
+					}
+				}
+				if(akadaly){
+					document.getElementById("alldb").innerHTML = alldb;
+				} else{
+					document.getElementById("alldb").innerHTML = "0 - nincs akadály";
+				}
+				if(Math.random()<Number(document.getElementById("fauto").value)/100) fa.push(new FelsoAuto());
+				if(Math.random()<Number(document.getElementById("aauto").value)/100) aa.push(new AlsoAuto());
+			}
+			document.getElementById("all").onclick = function all(){
+				if(anim==false){
+					anim = true;
+					document.getElementById("all").value = "Animáció megállítása";
+				} else {
+					anim = false;
+					document.getElementById("all").value = "Animáció indítása";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" resize hidpi="off"></canvas>
+		<div id="beall">
+			<h1 id="cim">Autópálya</h1>
+			<form id="alap">
+				Doboz áthelyezésének valószínűsége autónként: <input id="ath" type="number" value="1">%<br>
+				Autók sűrűsége (új autó megjelenésének esélye ~1 századmásodperc alatt)<br>
+				felső sávban: <input id="fauto" type="number" value="1">%<br>
+				also sávban: <input id="aauto" type="number" value="1">%<br>
+				Új autók színe: <input id="szin" type="text"><br>
+				<input id="veletlen" type="checkbox" checked> véletlenszerű<br>
+				<input id="all" type="button" value="Animáció megállítása">
+			</form>
+			<div style="float: right;">Doboz mögött feltorlódott autók száma: <span id="alldb"></span></div>
+		</div>
+	</body>
+</html>

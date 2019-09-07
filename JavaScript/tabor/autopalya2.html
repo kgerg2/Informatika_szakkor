@@ -1,0 +1,234 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Autópálya</title>
+		<style type="text/css">
+			html, body {
+				margin: 0;
+				overflow: hidden;
+				height: 100%;
+				background-color: darkgrey;
+				font-family: Arial;
+				font-size: 16px;
+			}
+			#beall{
+				position: fixed;
+				top: 600px;
+				left: 0;
+				//padding: 10px;
+				overflow: auto;
+			}
+			h1{
+				text-align: center;
+				font-size: 24pt;
+				color: white;
+				//padding: 5px;
+			}
+			h4{
+				margin: 15px 0 5px 0;
+				font-size: 18px;
+			}
+			input{
+				background-color: white;
+				border: 1px solid black;
+				padding: 2px;
+			}
+			input[type=number]{
+				width: 100px;
+			}
+			input[type=button]{
+				margin: 3px;
+				padding: 4px 8px;
+			}
+			canvas[resize]{
+				height: 600;
+				width: 100%;
+				background-color: lightgrey;
+			}
+		</style>
+		<script type="text/paperscript" canvas="canvas">
+			var savdb = 4;
+			var autodb = 10;
+			var a = [];
+			var maxSebesseg = 10;
+			
+			function ut_rajz(){
+				var vonal = new Path(new Point(0, 0), new Point(canvas.width, 0));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				vonal = new Path(new Point(0, canvas.height), new Point(canvas.width, canvas.height));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				for(var i=1;i<savdb;i++){
+					vonal = new Path(new Point(0, i*canvas.height/savdb), new Point(canvas.width, i*canvas.height/savdb));
+					vonal.strokeWidth = 10; // Szaggatott vonal ------------------------------------------------------------------------
+					vonal.strokeColor = "white";
+				}
+			}
+			ut_rajz();
+			
+			function Auto(){
+				this.terulet = new Path.Rectangle(0, 0, 2*canvas.height/savdb-20, canvas.height/savdb-20);
+				//this.terulet.fillColor = "white";
+				this.auto = new Path.Rectangle(0, 0, (2*canvas.height/savdb-20)*0.8, (canvas.height/savdb-20)*0.75);
+				this.sebesseg = 0;
+				this.maxSebesseg = maxSebesseg*(Math.random()/4+0.75);
+				this.halad = true;
+				this.tullep = function(){
+					if(this.terulet.bounds.left<0 && !this.masolat){
+						this.masolat = this.auto.clone();
+						this.termasolat = this.terulet.clone();
+						//this.termasolat.fillColor = "lightgreen";
+						this.masolat.position = this.auto.position + [canvas.width, 0];
+						this.termasolat.position = this.auto.position + [canvas.width, 0];
+					}
+					if(this.terulet.bounds.right<0){
+						if(!this.halad) console.log("most", this);
+						this.auto.position = this.masolat.position;
+						this.terulet.position = this.auto.position;
+						this.termasolat.remove();
+						this.masolat.remove();
+						this.masolat = undefined;
+					}
+				}
+				this.lep = function(){
+					this.terulet.position.x -= this.sebesseg;
+					this.auto.position = this.terulet.position;
+					if(this.masolat){
+						this.termasolat.position.x -= this.sebesseg;
+						this.masolat.position = this.termasolat.position;
+					}
+					this.tullep();
+				}
+				this.savvaltas = function(){
+					//console.log(3, this.terulet.position);
+					var elo = this.terulet.bounds.top;
+					//console.log((this.terulet.position-this.savvalt)*this.sebesseg/(this.terulet.position-this.savvalt).length);
+					this.terulet.position -= (this.terulet.position-this.savvalt)*this.sebesseg/(this.terulet.position-this.savvalt).length;
+					//debugger;
+					this.auto.position = this.terulet.position;
+					if(this.masolat){
+						this.termasolat.position.x -= this.sebesseg*(this.terulet.position-this.savvalt)*(this.terulet.position-this.savvalt).length;
+						this.masolat.position = this.termasolat.position;
+					}
+					//console.log(this.sav, Math.abs(this.terulet.bounds.top-10-this.sav*canvas.height/savdb), Math.abs(elo-10-this.sav*canvas.height/savdb));
+					if(Math.abs(this.terulet.bounds.top-this.sav*canvas.height/savdb)>Math.abs(elo-this.sav*canvas.height/savdb)){
+						this.savvalt = undefined;
+						this.halad = true;
+						this.terulet.bounds.top = this.sav*canvas.height/savdb+10;
+						this.auto.position = this.terulet.position;
+						if(this.masolat){
+							this.termasolat.position.x = this.terulet.position + [canvas.width, 0];
+							this.masolat.position = this.termasolat.position;
+						}
+					}
+					this.tullep();
+				}
+			}
+			
+			var proba = 0;
+			for(var i=0;i<autodb && proba<10000;i++){
+				var jo = false;
+				proba = 0;
+				a[i] = new Auto();
+				do{
+					jo = true;
+					a[i].sav = Math.floor(Math.random()*4);
+					a[i].terulet.position = new Point(Math.random()*canvas.width, a[i].sav*canvas.height/savdb) + [canvas.height/savdb, canvas.height/savdb/2];
+					for(var j=0;j<i && jo;j++){
+						if(a[i].terulet.intersects(a[j].terulet)) jo = false;
+					}
+					proba++;
+				} while(!jo && proba<10000);
+				a[i].auto.position = a[i].terulet.position;
+				var szin = Math.floor(Math.random()*0xFFFFFF)
+				a[i].auto.fillColor = "#" + (szin).toString(16);
+				a[i].auto.strokeColor = "#" + (0xFFFFFF-szin).toString(16);
+			}
+			
+			function onFrame(event){
+				for(var i=0;i<a.length;i++){
+					//console.log(1, i, a[i].terulet.position);
+					if(a[i].savvalt){
+						//console.log(2, a[i].terulet.position);
+						a[i].savvaltas();
+					} else{
+						for(var j=0;j<a.length;j++){
+							if(j!=i && ((a[j].terulet.intersects(a[i].terulet) && a[i].auto.position.x>a[j].auto.position.x) || (a[i].masolat && a[j].terulet.intersects(a[i].termasolat) && a[i].masolat.position.x>a[j].auto.position.x))/* && a[j].sebesseg<a[i].sebesseg*/) a[i].halad = false;
+						}
+						//console.log(2, i, a[i].terulet.position);
+						if(a[i].halad){
+							a[i].lep();
+							a[i].sebesseg += Math.random()*(a[i].maxSebesseg-a[i].sebesseg)/100;
+						} else{ // sávváltás
+							//console.log(i, a[i].terulet);
+							var lehet = true;
+							var teszt = a[i].terulet.clone(), tesztmasolat;
+							teszt.position.y += canvas.height/savdb;
+							//teszt.fillColor = "red";
+							if(a[i].masolat){
+								tesztmasolat = a[i].termasolat.clone();
+								tesztmasolat.position.y += canvas.height/savdb;
+							}
+							if(a[i].sav==savdb-1) lehet = false;
+							/*for(var j=0;j<a.length && lehet;j++){
+								if(j!=i && ((a[j].terulet.intersects(teszt) && a[i].auto.position.x>a[j].auto.position.x) || (a[i].masolat && a[j].terulet.intersects(tesztmasolat) && a[i].masolat.position.x>a[j].auto.position.x)) && a[j].sebesseg<a[i].sebesseg) lehet = false;
+							}*/
+							for(var j=0;j<a.length && lehet;j++){
+								if(j!=i && (teszt.intersects(a[j].terulet) || (tesztmasolat && tesztmasolat.intersects(a[j].terulet)))) lehet = false;
+							}
+							//debugger;
+							teszt.remove();
+							if(tesztmasolat) tesztmasolat.remove();
+							if(lehet){
+								a[i].savvalt = a[i].terulet.position + [-4*canvas.height/savdb, canvas.height/savdb];
+								a[i].sav++;
+								/*var ut = new Path(a[i].savvalt, a[i].terulet.position);
+								ut.strokeColor = "black";
+								debugger;*/
+							} else{
+								lehet = true;
+								teszt = a[i].terulet.clone(), tesztmasolat;
+								teszt.position.y -= canvas.height/savdb;
+								//teszt.fillColor = "red";
+								if(a[i].masolat){
+									tesztmasolat = a[i].termasolat.clone();
+									tesztmasolat.position.y -= canvas.height/savdb;
+								}
+								if(a[i].sav==0) lehet = false;
+								/*for(var j=0;j<a.length && lehet;j++){
+									if(j!=i && ((a[j].terulet.intersects(teszt) && a[i].auto.position.x>a[j].auto.position.x) || (a[i].masolat && a[j].terulet.intersects(tesztmasolat) && a[i].masolat.position.x>a[j].auto.position.x)) && a[j].sebesseg<a[i].sebesseg) lehet = false;
+								}*/
+								for(var j=0;j<a.length && lehet;j++){
+									if(j!=i && (teszt.intersects(a[j].terulet) || (tesztmasolat && tesztmasolat.intersects(a[j].terulet)))) lehet = false;
+								}
+								//debugger;
+								teszt.remove();
+								if(tesztmasolat) tesztmasolat.remove();
+								if(lehet){
+									a[i].savvalt = a[i].terulet.position + [-4*canvas.height/savdb, -canvas.height/savdb];
+									a[i].sav--;
+								} else{
+									a[i].sebesseg = 0;
+									a[i].halad = true;
+								}
+							}
+							//console.log(a[i].terulet);
+						}
+					}
+					//if(a[i].savvalt) console.log(a[i]);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" resize hidpi="off"></canvas>
+		<div id="beall">
+			<h1 id="cim">Autópálya</h1>
+			<form id="alap">
+				<input id="friss" type="button" value="Frissítés"><input id="all" type="button" value="Animáció megállítása">
+			</form>
+		</div>
+	</body>
+</html>

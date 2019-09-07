@@ -1,0 +1,41 @@
+﻿Név	Gyűjtendő	Gyeleje	Gyvége	Gyido		Legkorábban:	
+Acsalapu	levél	6	8			
+Akác	virág	5	9			Levél legkésőbben:	
+Apróbojtorjánfű	virágzó hajtás	6	8			
+Aranyvesszőfű	virágzó hajtás	7	8			Leveles növények:	
+Bakfű	virágzó hajtás	6	8			
+Berkenye	termés	9	10			
+Bodza	virágzat	5	6			
+Bojtorján	gyökér	9	4			
+Boróka	termés	8	10			
+Csalán	levél	7	9			
+Csarab	virágzó hajtás	7	9			
+Cserszömörce	levél	6	8			
+Csillagpázsit	gyökértörzs	10	4			
+Csipkerózsa	áltermés	9	11			
+Csombormenta	virágzó hajtás	6	8			
+Diófa	levél	6	8			
+Édesgyökér	gyökér	10	4			
+Ezerjófű	virágzó hajtás	6	8			
+Falgyomfű	virágzó hajtás	6	8			
+Fátyolvirág	gyökér	9	5			
+Fecskefű	virágzó hajtás	5	6			
+Fehér árvacsalán	virág	5	6			
+Fehér fagyöngy	leveles hajtás	11	4			
+Fehér mályva	levél	6	8			
+Fehér üröm	levél	5	6			
+Fekete áfonya	levél	6	9			
+Fekete nadálytő	levél	6	8			
+Fekete ribizli	levél	7	8			
+Fekete ürömfű	levél	6	8			
+Füstikefű	virágzó hajtás	5	8			
+Galagonya	virág	5	6			
+Gémorrfű	virágzó hajtás	5	8
+Gólyaorrfű	virágzó hajtás	5	7
+Gyermekláncfű	levél	4	6
+Gyöngyvirág	levél	6	7
+Gyujtoványfű	virágzó hajtás	7	8
+Hársfa	virágzat	5	6
+Homoki gyopár	virágzat	8	9
+Ibolya	levél	9	3
+Iglic	virágzó hajtás	7	8

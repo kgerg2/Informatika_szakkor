@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1488031801 source:c:\users\nt2_030\documents\tanuk\main.c
+	<stdio.h>
+	<stdlib.h>
+

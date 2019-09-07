@@ -1,0 +1,187 @@
+<svg width='420' height='420' xmlns='http://www.w3.org/2000/svg' version='1.1'>
+	<rect x='10' y='10' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='110' y='10' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='210' y='10' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='310' y='10' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='10' y='110' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='110' y='110' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='210' y='110' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='310' y='110' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='10' y='210' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='110' y='210' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='210' y='210' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='310' y='210' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='10' y='310' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='110' y='310' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='210' y='310' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='310' y='310' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='60' y='60' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='160' y='60' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='260' y='60' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='360' y='60' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='60' y='160' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='160' y='160' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='260' y='160' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='360' y='160' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='60' y='260' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='160' y='260' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='260' y='260' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='360' y='260' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='60' y='360' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='160' y='360' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='260' y='360' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+	<rect x='360' y='360' width='50' height='50' stroke='black' fill='black'>
+	</rect>
+<circle cx='35' cy='35' r='20' stroke='' fill=''>
+	<animate 
+	 attributeName='fill'
+	 attributeType='XML'
+	 from='' to='red'
+	 begin='1s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='35' to='285'
+	 begin='3s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='35' to='35'
+	 begin='3s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='285' to='185'
+	 begin='5s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='35' to='385'
+	 begin='5s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='185' to='135'
+	 begin='7s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='385' to='335'
+	 begin='7s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='135' to='385'
+	 begin='9s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='335' to='185'
+	 begin='9s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='385' to='335'
+	 begin='11s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='185' to='185'
+	 begin='11s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='335' to='335'
+	 begin='13s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='185' to='135'
+	 begin='13s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='335' to='135'
+	 begin='15s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='135' to='235'
+	 begin='15s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cx'
+	 attributeType='XML'
+	 from='135' to='135'
+	 begin='17s' dur='1s'
+	 fill='freeze'
+	 />
+	<animate 
+	 attributeName='cy'
+	 attributeType='XML'
+	 from='235' to='35'
+	 begin='17s' dur='1s'
+	 fill='freeze'
+	 />
+</circle>
+</svg>

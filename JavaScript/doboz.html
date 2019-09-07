@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Doboz mozgatása</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+		#doboz{
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background: darkblue;
+			color: white;
+			text-align: center;
+			line-height: 100px;
+			top: 0;
+			left: 0;
+		}
+    </style>
+    <script type='text/javascript'>
+		function kezd(){
+			document.getElementById("doboz").style.top = "0px";
+			document.getElementById("doboz").style.left = "0px";
+			document.getElementById("doboz").innerHTML = document.getElementById("doboz").style.top + "; " + document.getElementById("doboz").style.left;
+		}
+      function mozgat(bill){
+        if(bill.key=="ArrowUp"){
+			document.getElementById("doboz").style.top = -8 + parseInt(document.getElementById("doboz").style.top) + "px";
+			document.getElementById("doboz").innerHTML = document.getElementById("doboz").style.top + "; " + document.getElementById("doboz").style.left;
+		} else if(bill.key=="ArrowDown"){
+			document.getElementById("doboz").style.top = 8 + parseInt(document.getElementById("doboz").style.top) + "px";
+			document.getElementById("doboz").innerHTML = document.getElementById("doboz").style.top + "; " + document.getElementById("doboz").style.left;
+		} else if(bill.key=="ArrowLeft"){
+			document.getElementById("doboz").style.left = -8 + parseInt(document.getElementById("doboz").style.left) + "px";
+			document.getElementById("doboz").innerHTML = document.getElementById("doboz").style.top + "; " + document.getElementById("doboz").style.left;
+		} else if(bill.key=="ArrowRight"){
+			document.getElementById("doboz").style.left = 8 + parseInt(document.getElementById("doboz").style.left) + "px";
+			document.getElementById("doboz").innerHTML = document.getElementById("doboz").style.top + "; " + document.getElementById("doboz").style.left;
+		}
+      }
+    </script>
+  </head>
+  <body onkeydown="mozgat(event)" onload="kezd()">
+    <div id='doboz'></div>
+  </body>
+</html>

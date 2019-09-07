@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1488034040 source:c:\users\nt2_030\documents\varos\main.c
+	<stdio.h>
+	<stdlib.h>
+

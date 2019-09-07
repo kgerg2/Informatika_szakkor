@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Animáció</title>
+		<script type="text/paperscript" canvas="myCanvas">
+			// Create a rectangle shaped path with its top left point at
+			// {x: 75, y: 75} and a size of {width: 75, height: 75}
+			var negyzet = new Path.Circle({
+				position: new Point(75, 75),
+				radius: 75,
+				strokeColor: 'black',
+				fillColor: 'red'
+			});
+
+			function onFrame(event) {
+				if(event.count<201 && event.count>100){
+					negyzet.position += [5, 3];
+				}
+				console.log(event.count);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Animáció. Forrás: paper.js</h1>
+		<canvas id="myCanvas" width="600" height="400"></canvas>
+		
+	</body>
+</html>

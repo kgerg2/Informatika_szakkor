@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Egyszerû weblap</title>
+  </head>
+  <body>
+    <h1>Objektum rajzolása</h1>
+     <canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;">
+	 szöveg</canvas>
+	 <script>
+	  var c = document.getElementById("myCanvas");
+	  var ctx = c.getContext("2d");
+	  function Teglalap(x, y, width, height, fillColor){
+		  this.x = 100;
+		  this.y = 200;
+		  this.width = 200;
+		  this.height = 100;
+		  this.fillColor = "#FF0000";
+		  this.rajzol = function(){
+			ctx.rect(this.x, this.y, this.width, this.height);
+			ctx.stroke();
+			ctx.fillStyle=this.fillColor;
+			ctx.fill();};
+	  }
+	  var t1 = new Teglalap();
+	  t1.rajzol();
+	  ctx.rect(20, 20, 150, 100);
+	  ctx.stroke();
+	  ctx.fillStyle="red";
+	  ctx.fill();
+	</script> 
+  </body>
+</html>

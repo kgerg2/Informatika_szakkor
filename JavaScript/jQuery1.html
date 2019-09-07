@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+    <title>jQuery példa</title>
+    <script>
+		$("#doboz").text = Date();
+		$(document).keypress(function(){
+			$("#doboz").animate({
+				top: '100px',
+				left: '100px'
+			});
+		});
+    </script>
+  </head>
+  <body>
+	  <div id="doboz" style="position: absolute; height: 100px; width: 100px; background: darkblue; top: 0; left: 0;"></div>
+  </body>
+</html>
+

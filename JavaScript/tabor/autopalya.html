@@ -1,0 +1,158 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Autópálya</title>
+		<style type="text/css">
+			html, body {
+				margin: 0;
+				overflow: hidden;
+				height: 100%;
+				background-color: darkgrey;
+				font-family: Arial;
+				font-size: 16px;
+			}
+			#beall{
+				position: fixed;
+				top: 600px;
+				left: 0;
+				//padding: 10px;
+				overflow: auto;
+			}
+			h1{
+				text-align: center;
+				font-size: 24pt;
+				color: white;
+				//padding: 5px;
+			}
+			h4{
+				margin: 15px 0 5px 0;
+				font-size: 18px;
+			}
+			input{
+				background-color: white;
+				border: 1px solid black;
+				padding: 2px;
+			}
+			input[type=number]{
+				width: 100px;
+			}
+			input[type=button]{
+				margin: 3px;
+				padding: 4px 8px;
+			}
+			canvas[resize]{
+				height: 600;
+				width: 100%;
+				background-color: lightgrey;
+			}
+		</style>
+		<script type="text/paperscript" canvas="canvas">
+			var savdb = 4;
+			var autodb = 10;
+			var a = [];
+			var maxSebesseg = 10;
+			
+			function ut_rajz(){
+				var vonal = new Path(new Point(0, 0), new Point(canvas.width, 0));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				vonal = new Path(new Point(0, canvas.height), new Point(canvas.width, canvas.height));
+				vonal.strokeWidth = 30;
+				vonal.strokeColor = "black";
+				for(var i=1;i<savdb;i++){
+					vonal = new Path(new Point(0, i*canvas.height/savdb), new Point(canvas.width, i*canvas.height/savdb));
+					vonal.strokeWidth = 10; // Szaggatott vonal ------------------------------------------------------------------------
+					vonal.strokeColor = "white";
+				}
+			}
+			ut_rajz();
+			
+			function Auto(){
+				this.terulet = new Path.Rectangle(0, 0, 2*canvas.height/savdb-20, canvas.height/savdb-20);
+				this.auto = new Path.Rectangle(0, 0, (2*canvas.height/savdb-20)*0.8, (canvas.height/savdb-20)*0.75);
+				this.sebesseg = 0;
+				this.maxSebesseg = maxSebesseg*(Math.random()/4+0.75);
+				this.halad = true;
+				this.savvalt = false;
+				this.lep = function(){
+					this.terulet.position.x -= this.sebesseg;
+					this.auto.position = this.terulet.position;
+					if(this.masolat) this.masolat.position.x -= this.sebesseg;
+					if(this.terulet.bounds.left<0 && !this.masolat){
+						this.masolat = this.auto.clone();
+						this.masolat.position = this.auto.position + [canvas.width, 0];
+					}
+					if(this.terulet.bounds.right<0){
+						this.auto.position = this.masolat.position;
+						this.terulet.position = this.auto.position;
+						this.masolat.remove();
+						this.masolat = undefined;
+					}
+				}
+			}
+			
+			var proba = 0;
+			for(var i=0;i<autodb && proba<10000;i++){
+				var jo = false;
+				proba = 0;
+				a[i] = new Auto();
+				do{
+					jo = true;
+					a[i].terulet.position = new Point(Math.random()*canvas.width, Math.floor(Math.random()*4)*canvas.height/savdb) + [canvas.height/savdb, canvas.height/savdb/2];
+					for(var j=0;j<i && jo;j++){
+						if(a[i].terulet.intersects(a[j].terulet)) jo = false;
+					}
+					proba++;
+				} while(!jo && proba<10000);
+				a[i].auto.position = a[i].terulet.position;
+				a[i].auto.fillColor = "#" + (Math.floor(Math.random()*0xFFFFFF)).toString(16);
+			}
+			
+			function onFrame(event){
+				for(var i=0;i<a.length;i++){
+					if(a[i].savvalt){
+						
+					} else{
+						for(var j=0;j<a.length;j++){
+							if(j!=i && a[j].terulet.intersects(a[i].terulet) && a[i].auto.position.x>a[j].auto.position.x && a[j].sebesseg<a[i].sebesseg) a[i].halad = false;
+						}
+						if(a[i].halad){
+							a[i].lep();
+							a[i].sebesseg += Math.random()*(a[i].maxSebesseg-a[i].sebesseg)/10;
+						} else{ // sávváltás
+							a[i].sebesseg = 0;
+							a[i].halad = true;
+						}
+					}
+					/*if(a[i].terulet.bounds.left<0 && !a[i].masolat){
+						//if(i==0) console.log("most1");
+						a[i].masolat = a[i].auto.clone();
+						a[i].masolat.position = a[i].auto.position + [canvas.width, 0];
+					}
+					if(a[i].terulet.bounds.right<0){
+						//if(i==0) console.log("most2");
+						a[i].auto.position = a[i].masolat.position;
+						a[i].terulet.position = a[i].auto.position;
+						a[i].masolat.remove();
+						a[i].masolat = undefined;
+						//console.log(a[i].masolat);
+					}*/
+				}
+				//console.log(a[0].auto.bounds.left, a[0].masolat);
+			}
+			/*for(var i=0;i<autodb;i++){
+				a[i].fillColor = "red";
+			}*/
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" resize hidpi="off"></canvas>
+		<div id="beall">
+			<h1 id="cim">Autópálya</h1>
+			<form id="alap">
+				<input id="friss" type="button" value="Frissítés"><input id="all" type="button" value="Animáció megállítása">
+			</form>
+		</div>
+	</body>
+</html>

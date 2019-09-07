@@ -1,0 +1,238 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Legelő</title>
+		<style type="text/css">
+			html, body {
+				text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white, 0 0 5px white;
+				margin: 0;
+				overflow: hidden;
+				height: 100%;
+				font-family: Arial;
+				font-size: 16px;
+			}
+			#beall{
+				position: fixed;
+				top: 10px;
+				right: 10px;
+				width: 15%;
+				height: 90%;
+				padding: 10px;
+			}
+			#ossz_diagram{
+				position: absolute;
+				border: 1px solid black;
+				bottom: 10px;
+				height: 60%;
+				width: 90%;
+			}
+			table{
+				table-layout: fixed;
+				width: 80%;
+				height: 90%;
+				border: 5px solid black;
+				margin: 10px;
+				text-align: center;
+			}
+			#jelm{
+				margin: 0;
+				height: 100%;
+				width: 45%;
+				overflow: visible;
+				border: none;
+				text-align: right;
+			}
+			#jelm td{
+				border: none;
+			}
+			td{
+				position: relative;
+				border: 1px solid black;
+			}
+			.gomb{
+				background-color: red;
+				border: 3px solid lightred;
+				border-radius: 50%;
+				width: 60%;
+				height: 0;
+				padding-bottom: 60%;
+				margin: auto;
+			}
+			.oszlop{
+				z-index: -1;
+				position: absolute;
+				width: 50%;
+				left: 25%;
+				line-height: 1.6;
+				text-align: center;
+				text-shadow: none;
+				color: white;
+				background-color: blue;
+				bottom: 10px;
+			}
+			form{
+				margin: 0;
+			}
+			h1{
+				margin: 0 0 10px 0;
+				text-align: center;
+				font-size: 16pt;
+			}
+			input{
+				background-color: white;
+				border: 0;
+				padding: 2px;
+			}
+			input[type=number]{
+				width: 50px;
+				border-bottom: 1px dotted black;
+			}
+			input[type=button]{
+				border: 1px solid black;
+				width: 40%;
+				font-size: 13pt;
+				margin: 15px 5px;
+				padding: 4px 8px;
+			}
+		</style>
+		<script type="text/paperscript" canvas="canvas">
+			var oszlopMagassag = window.innerWidth*0.3;
+			var db = Number(document.getElementById("db").value);
+			var tomeg = Number(document.getElementById("tomeg").value);
+			var eredetiTomeg = tomeg;
+			var tabl = document.getElementById("tabl");
+			var all = [];
+			var auto = false;
+			for(var i=0;i<db;i++){
+				all[i] = 1;
+			}
+			uj();
+			/*canvas.height = window.innerHeight-320;
+			console.log(view.innerHeight);*/
+			document.getElementById("uj").onclick = function(){
+				db = Number(document.getElementById("db").value);
+				tomeg = Number(document.getElementById("tomeg").value);
+				tabl = document.getElementById("tabl");
+				all = [];
+				for(var i=0;i<db;i++){
+					all[i] = 1;
+				}
+				uj();
+			}
+			
+			document.getElementById("auto").onclick = function(){
+				if(auto){
+					document.getElementById("alap").style.display = "inline";
+					document.getElementById("masodl").style.display = "none";
+					document.getElementById("auto").value = "Auto. lép";
+					auto = false;
+				} else{
+					document.getElementById("alap").style.display = "none";
+					document.getElementById("masodl").style.display = "inline";
+					document.getElementById("auto").value = "Áll";
+					auto = true;
+				}
+			}
+			
+			function onFrame(event){
+				if(auto && event.count%(Math.round(100/Number(document.getElementById("seb").value)))==0 && tomeg>0){
+					had(Math.floor(Math.random()*db));
+				}
+			}
+			
+			function uj(){
+				
+				tabl.innerHTML = '<tr id="ssz"></tr>';
+				var sor = document.getElementById("ssz");
+				for(var i=1;i<db+1;i++){
+					sor.innerHTML += '<td>' + i + '.</td>';
+				}
+				
+				tabl.innerHTML += '<tr id="allat"></tr>';
+				sor = document.getElementById("allat");
+				for(var i=0;i<db;i++){
+					sor.innerHTML += '<td id="t' + i + '"></td>';
+					if(all[i]<5){
+						for(var j=0;j<all[i];j++){
+							document.getElementById("t" + i).innerHTML += tomeg + '<br>';
+						}
+					} else{
+						document.getElementById("t" + i).innerHTML += all[i] + '×' + tomeg;
+					}
+				}
+				
+				tabl.innerHTML += '<tr id="diagram"></tr>';
+				var sor = document.getElementById("diagram");
+				sor.style.height = oszlopMagassag + "px";
+				for(var i=0;i<db;i++){
+					var magassag = oszlopMagassag*tomeg/eredetiTomeg*all[i]/2;
+					sor.innerHTML += '<td><div class="oszlop" style="height: ' + magassag + 'px;">' + tomeg*all[i] + '</div></td>';
+				}
+				
+				tabl.innerHTML += '<tr id="gombok"></tr>';
+				sor = document.getElementById("gombok");
+				for(var i=0;i<db;i++){
+					sor.innerHTML += '<td><div id="g' + i + '" class="gomb"></div></td>';
+				}
+				for(var i=0;i<db;i++){
+					document.getElementById("g" + i).onclick = function(){
+						had(Number(this.id.slice(1)));
+					}
+				}
+				
+				document.getElementById("ossz_diagram").innerHTML = '<table id="jelm" cellspacing="0" cellpadding="0"></table>';
+				document.getElementById("jelm").innerHTML = '<tbody></tbody>';
+				var sor = document.getElementById("jelm").getElementsByTagName("tbody")[0];
+				for(var i=0;i<5;i++){
+					var ert = ((4-i)*2+1)/5*db*eredetiTomeg;
+					sor.innerHTML += '<tr><td>' + ert + ' -</td></tr>';
+				}
+				var ossz = 0;
+				for(var i in all){
+					ossz += all[i];
+				}
+				ossz *= tomeg;
+				var ert = ossz/(db*eredetiTomeg)*50;
+				document.getElementById("ossz_diagram").innerHTML += '<div class="oszlop" style="left: 50%; width: 40%; bottom: 0; height: ' + ert + '%">' + ossz + '</div>';
+			}
+			function had(ssz){
+				all[ssz]++;
+				tomeg -= Number(document.getElementById("veszt").value);
+				uj();
+			}
+			/*var vonal = new Path(new Point(0, canvas.height), new Point(canvas.height, 0));
+			vonal.strokeColor = "black";*/
+		</script>
+	</head>
+	<body>
+		
+		<table>
+			<tbody id="tabl">
+				<tr></tr>
+			</tbody>
+		</table>
+		
+		<canvas id="canvas" resize hidpi="off"></canvas>
+		<div id="beall">
+			<h1>Konszenzus</h1>
+			<form>
+				<div id="alap">
+					Darabszám: <input id="db" type="number" value="10"><br>
+					Eredeti mennyiség: <input id="tomeg" type="number" value="1000"><br>
+					Veszteség: <input id="veszt" type="number" value="100"><br>
+				</div>
+				<div id="masodl" style="display: none">
+					Sebesség (lépés/mp): <input id="seb" type="number" value="1"><br>
+				</div>
+				<input id="uj" type="button" value="Új">
+				<input id="auto" type="button" value="Auto. lép">
+			</form>
+			<div style="margin-top: 20px;">Összérték:</div>
+			<div id="ossz_diagram">
+				
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+		<script type="text/javascript" src="paper.js"></script>
+		<title>Animáció</title>
+		<script type="text/paperscript" canvas="myCanvas">
+			// Create a rectangle shaped path with its top left point at
+			// {x: 75, y: 75} and a size of {width: 75, height: 75}
+			var rect = new Rectangle({
+				position: new Point(75, 75),
+				size: new Size(75, 75),
+				strokeColor: 'black',
+				fillColor: 'red'
+			});
+			//var negyzet = new Path.rect;
+			var negyzet = new Path.Rectangle(rect);
+			function onFrame(event) {
+				if(event.count<201 && event.count>100){
+					negyzet.position = new Point(75+(event.count-100)*10/6,75);
+					//console.log(negyzet.position);
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Animáció. Forrás: paper.js</h1>
+		<canvas id="myCanvas" width="600" height="400"></canvas>
+		
+	</body>
+</html>

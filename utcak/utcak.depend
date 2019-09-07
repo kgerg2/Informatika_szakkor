@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1486652572 source:/home/kovacsg/Dokumentumok/gcc2/NemesTihamer/utcak/main.c
+	<stdio.h>
+	<stdlib.h>
+
