@@ -1,0 +1,142 @@
+<svg width='800' height='600' xmlns='http://www.w3.org/2000/svg' version='1.1'>
+	<circle cx='80' cy='80' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='260' cy='40' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='220' cy='140' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='400' cy='120' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='580' cy='20' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='580' cy='140' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='740' cy='80' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='320' cy='200' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='60' cy='220' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='500' cy='220' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='700' cy='210' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='760' cy='340' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='200' cy='220' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='280' cy='320' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='420' cy='320' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='600' cy='360' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='100' cy='360' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='180' cy='420' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='40' cy='560' r='5' stroke='black' fill='red'>
+	</circle>
+	<circle cx='360' cy='400' r='10' stroke='black' fill='red'>
+	</circle>
+	<circle cx='300' cy='520' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='520' cy='440' r='5' stroke='black' fill='red'>
+	</circle>
+	<circle cx='680' cy='520' r='5' stroke='black' fill='black'>
+	</circle>
+	<circle cx='440' cy='560' r='5' stroke='black' fill='black'>
+	</circle>
+	<line x1='80' y1='80' x2='260' y2='40' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='80' y1='80' x2='220' y2='140' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='80' y1='80' x2='60' y2='220' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='260' y1='40' x2='220' y2='140' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='260' y1='40' x2='400' y2='120' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='260' y1='40' x2='580' y2='20' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='260' y1='40' x2='320' y2='200' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='220' y1='140' x2='200' y2='220' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='400' y1='120' x2='580' y2='20' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='400' y1='120' x2='580' y2='140' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='400' y1='120' x2='320' y2='200' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='400' y1='120' x2='500' y2='220' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='400' y1='120' x2='420' y2='320' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='580' y1='20' x2='580' y2='140' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='580' y1='140' x2='740' y2='80' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='580' y1='140' x2='500' y2='220' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='740' y1='80' x2='500' y2='220' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='740' y1='80' x2='700' y2='210' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='320' y1='200' x2='420' y2='320' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='320' y1='200' x2='100' y2='360' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='320' y1='200' x2='360' y2='400' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='60' y1='220' x2='200' y2='220' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='60' y1='220' x2='100' y2='360' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='500' y1='220' x2='700' y2='210' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='500' y1='220' x2='420' y2='320' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='700' y1='210' x2='760' y2='340' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='700' y1='210' x2='600' y2='360' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='700' y1='210' x2='360' y2='400' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='760' y1='340' x2='600' y2='360' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='760' y1='340' x2='680' y2='520' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='280' y1='320' x2='100' y2='360' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='280' y1='320' x2='180' y2='420' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='280' y1='320' x2='360' y2='400' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='600' y1='360' x2='360' y2='400' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='600' y1='360' x2='300' y2='520' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='600' y1='360' x2='520' y2='440' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='100' y1='360' x2='180' y2='420' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='100' y1='360' x2='40' y2='560' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='180' y1='420' x2='360' y2='400' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='40' y1='560' x2='360' y2='400' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='40' y1='560' x2='300' y2='520' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='360' y1='400' x2='300' y2='520' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='300' y1='520' x2='440' y2='560' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='520' y1='440' x2='680' y2='520' stroke='black' stroke-width='2'>
+	</line>
+	<line x1='520' y1='440' x2='440' y2='560' stroke='red' stroke-width='4'>
+	</line>
+	<line x1='680' y1='520' x2='440' y2='560' stroke='black' stroke-width='2'>
+	</line>
+</svg>
